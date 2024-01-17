@@ -4,7 +4,6 @@
 Animation Player for Ebitengine v2
 
 To do: 
-- [ ] Doc comments
 - [ ] Error handling
 - [ ] Tutorials
 - [ ] Alternative sub-rectangle methods. (vertical rectangles)
