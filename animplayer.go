@@ -18,6 +18,15 @@ type AnimationPlayer struct {
 	tick         float64
 }
 
+// NewAnimationPlayer returns new AnimationPlayer with spriteSheet
+func NewAnimationPlayer(spriteSheet *ebiten.Image) *AnimationPlayer {
+	return &AnimationPlayer{
+		SpriteSheet:       spriteSheet,
+		Paused:            false,
+		Animations:        make(map[string]*Animation),
+		CurrentFrameIndex: 0,
+	}
+
 // NewAnimation adds new Animation to this AnimationPlayer and returns the added animation.
 //
 // x and y are top-left coordinates of the first frame's rectangle.
@@ -40,6 +49,7 @@ func (ap *AnimationPlayer) NewAnimation(stateName string, x, y, w, h, frameCount
 	}
 	ap.currentState = stateName
 	ap.Animations[stateName] = anim
+	ap.CurrentFrame = ap.Animations[ap.currentState].Frames[ap.CurrentFrameIndex]
 	return anim
 }
 
@@ -97,14 +107,5 @@ func (ap *AnimationPlayer) Update() {
 	// update image
 	ap.CurrentFrame = ap.Animations[ap.currentState].Frames[ap.CurrentFrameIndex]
 }
-
-// NewAnimationPlayer returns new AnimationPlayer with spriteSheet
-func NewAnimationPlayer(spriteSheet *ebiten.Image) *AnimationPlayer {
-	return &AnimationPlayer{
-		SpriteSheet:       spriteSheet,
-		Paused:            false,
-		Animations:        make(map[string]*Animation),
-		CurrentFrameIndex: 0,
-	}
 
 }
